@@ -6,6 +6,8 @@ public class Chromosome {
 	
 	// TODO: get from ANN
 	private int numGenes;
+	private FeedForwardANN net;
+	// TODO: intialize this net
 	
 	private Double[] genes;
 	private double fitness;
@@ -15,6 +17,8 @@ public class Chromosome {
 	
 	public Chromosome(int numGenes){
 		this.numGenes = numGenes;
+		genes = new Double[numGenes];
+		
 		f = new FitnessFunction();
 		
 		// sets random initial gene values
@@ -28,9 +32,35 @@ public class Chromosome {
 	}
 	
 	public void evaluate(){
-		// TODO: figure out where evaluation should actually happen - maybe in GA?
-		// would require using this.getOutputs(), possibly
-		//fitness = f.evaluate(this);
+		//
+		// Step 1: assign weights using gene values
+		// 
+		int placeholder = 0;
+		
+		// by layer
+		for (int l = 1; l < net.getNumLayers(); l++){
+			// by node in layer
+			for (int n = 0; n < net.getLayer(l).size(); n++){
+				ArrayList<Double> newWeights = new ArrayList<Double>();
+				// adds appropriate section of chromosome as this node's weights
+				for (int i = placeholder; i < net.getLayer(l).get(n).getNumWeights() + placeholder; i++){
+					newWeights.add(genes[i]);
+				}
+				net.getLayer(l).get(n).setWeights(newWeights);
+			}
+		}
+		
+		//
+		// Step 2: generate outputs using all the new weights
+		// 
+		net.generateOutput();
+		
+		// TODO: remember to clear all the outputs and stuff
+		
+		//
+		// Step 3: calculate & assign fitness
+		// 
+		fitness = net.calcNetworkError();		
 	}
 	
 	public int genNumGenes(){

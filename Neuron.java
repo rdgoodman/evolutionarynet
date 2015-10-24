@@ -262,6 +262,10 @@ public class Neuron {
 	public ActivationFunction getActivation() {
 		return f;
 	}
+	
+	public int getNumWeights(){
+		return weights.size();
+	}
 
 }
 

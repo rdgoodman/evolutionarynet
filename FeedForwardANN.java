@@ -377,6 +377,14 @@ import java.util.ArrayList;
 		public void setTargetOutputs(ArrayList<Double> newOutputs){
 			this.targetOutputs = newOutputs;
 		}
+		
+		public int getNumLayers(){
+			return layers;
+		}
+		
+		public ArrayList<Neuron> getLayer(int l){
+			return nodes.get(l);
+		}
 
 	}
 
