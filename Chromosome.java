@@ -15,14 +15,30 @@ public class Chromosome {
 	private ArrayList<Double> outputs;
 	
 	
-	public Chromosome(int numGenes){
-		this.numGenes = numGenes;
+	// TODO: this net should be unique to the GA instance
+	public Chromosome(FeedForwardANN net){
+		
+		this.net = net;
+		
+		calcNumGenes();
+		
 		genes = new Double[numGenes];
 		
 		f = new FitnessFunction();
 		
 		// sets random initial gene values
 		randomInit();
+	}
+
+	private void calcNumGenes(){
+		// per layer
+		for (int i = 0; i < net.getNumLayers(); i++){
+			// per node
+			for (int j = 0; j < net.getLayer(i).size(); j++){
+				numGenes += net.getLayer(i).get(j).getNumWeights();
+			}
+		}
+		
 	}
 	
 	private void randomInit(){
@@ -67,4 +83,7 @@ public class Chromosome {
 		return numGenes;
 	}
 	
+	public void setNetwork(FeedForwardANN net){
+		this.net = net;
+	}
 }
