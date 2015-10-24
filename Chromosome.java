@@ -28,6 +28,9 @@ public class Chromosome {
 		randomInit();
 	}
 
+	/**
+	 * Calculates the number of genes in this chromosome
+	 */
 	private void calcNumGenes(){
 		// per layer
 		for (int i = 0; i < net.getNumLayers(); i++){
@@ -38,7 +41,9 @@ public class Chromosome {
 		}
 		
 	}
-	
+	/**
+	 * Randomly initializes gene (weight) values
+	 */
 	private void randomInit(){
 		for (int i = 0; i < numGenes; i++){
 			genes[i] = Math.random();

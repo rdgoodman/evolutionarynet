@@ -189,13 +189,8 @@ import java.util.ArrayList;
 					}
 				}
 
-				// for all nodes, clear inputs
-				// (output already taken care of in Neuron.calcOutput()
-				for (int l = 1; l < layers; l++) {
-					for (Neuron n : nodes.get(l)) {
-						n.clearInputs();
-					}
-				}
+				clearInputs();
+				
 				generateOutput();
 				count++;
 				if (count > 10000){
@@ -205,6 +200,18 @@ import java.util.ArrayList;
 			} 
 			return outputs;
 		}
+		
+		
+		protected void clearInputs(){
+			// for all nodes, clear inputs
+			// (output already taken care of in Neuron.calcOutput()
+			for (int l = 1; l < layers; l++) {
+				for (Neuron n : nodes.get(l)) {
+					n.clearInputs();
+				}
+			}
+		}
+		
 
 		/** Calculates weight change for a hidden node */
 		protected Double calcHiddenWeightChange(Neuron n, Double delta,
@@ -384,6 +391,10 @@ import java.util.ArrayList;
 		
 		public ArrayList<Neuron> getLayer(int l){
 			return nodes.get(l);
+		}
+		
+		public ArrayList<Double> getOutputs(){
+			return outputs;
 		}
 
 	}

@@ -32,5 +32,28 @@ public class ChromosomeTest {
 		assertEquals(17, c3.genNumGenes());
 
 	}
+	
+	@Test
+	public void testEvalute(){
+		ArrayList<Double> inputs = new ArrayList<Double>();
+		inputs.add(3.0);
+		inputs.add(2.0);
+		inputs.add(.25);
+
+		ArrayList<Double> expectedOutput = new ArrayList<Double>();
+		expectedOutput.add(.8);
+		
+		FeedForwardANN net1 = new FeedForwardANN(1, 2, inputs, expectedOutput, true, false);		
+		Chromosome c1 = new Chromosome(net1);
+		
+		net1.generateOutput();
+
+		// TODO: issue probably has to do with size of inputs or something...?
+		
+		System.out.println("OUTPUT 1: " + net1.getOutputs().get(0));
+		
+		c1.evaluate();
+		System.out.println("OUTPUT 2: " + net1.getOutputs().get(0));
+	}
 
 }
