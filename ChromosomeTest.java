@@ -49,11 +49,15 @@ public class ChromosomeTest {
 		net1.generateOutput();
 
 		// TODO: issue probably has to do with size of inputs or something...?
+		net1.clearInputs();
 		
 		System.out.println("OUTPUT 1: " + net1.getOutputs().get(0));
-		
+		System.out.println("Error 1: " + net1.calcNetworkError());
+		System.out.println();
 		c1.evaluate();
 		System.out.println("OUTPUT 2: " + net1.getOutputs().get(0));
+		System.out.println("Error 2: " + net1.calcNetworkError());
+
 	}
 
 }
