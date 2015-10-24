@@ -18,10 +18,19 @@ public class ChromosomeTest {
 		ArrayList<Double> expectedOutput = new ArrayList<Double>();
 		expectedOutput.add(.8);
 		
-		FeedForwardANN net = new FeedForwardANN(1, 2, inputs, expectedOutput, true, false);
+		FeedForwardANN net1 = new FeedForwardANN(1, 2, inputs, expectedOutput, true, false);		
+		Chromosome c1 = new Chromosome(net1);
 		
-		Chromosome c = new Chromosome(net);
-		assertEquals(11, c.genNumGenes());
+		FeedForwardANN net2 = new FeedForwardANN(1, 3, inputs, expectedOutput, true, false);		
+		Chromosome c2 = new Chromosome(net2);
+		
+		FeedForwardANN net3 = new FeedForwardANN(2, 2, inputs, expectedOutput, true, false);		
+		Chromosome c3 = new Chromosome(net3);
+		
+		assertEquals(11, c1.genNumGenes());
+		assertEquals(16, c2.genNumGenes());
+		assertEquals(17, c3.genNumGenes());
+
 	}
 
 }

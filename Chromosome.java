@@ -3,11 +3,9 @@ package evol;
 import java.util.ArrayList;
 
 public class Chromosome {
-	
-	// TODO: get from ANN
+
 	private int numGenes;
 	private FeedForwardANN net;
-	// TODO: intialize this net
 	
 	private Double[] genes;
 	private double fitness;
