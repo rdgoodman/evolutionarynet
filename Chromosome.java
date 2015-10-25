@@ -14,6 +14,8 @@ public class Chromosome {
 	
 	
 	// TODO: this net should be unique to the GA instance
+	// hence, remember to call net.clearInputs() between each evaluation
+	// to avoid an out-of-bounds error
 	public Chromosome(FeedForwardANN net){
 		
 		this.net = net;
@@ -50,6 +52,9 @@ public class Chromosome {
 		}
 	}
 	
+	/**
+	 * Calculates the fitness of this chromosome
+	 */
 	public void evaluate(){
 		//
 		// Step 1: assign weights using gene values
@@ -82,11 +87,12 @@ public class Chromosome {
 		fitness = net.calcNetworkError();		
 	}
 	
-	public int genNumGenes(){
+	public int getNumGenes(){
 		return numGenes;
 	}
 	
-	public void setNetwork(FeedForwardANN net){
-		this.net = net;
+	public Double[] getGenes(){
+		return genes;
 	}
+
 }

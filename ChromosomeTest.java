@@ -27,9 +27,9 @@ public class ChromosomeTest {
 		FeedForwardANN net3 = new FeedForwardANN(2, 2, inputs, expectedOutput, true, false);		
 		Chromosome c3 = new Chromosome(net3);
 		
-		assertEquals(11, c1.genNumGenes());
-		assertEquals(16, c2.genNumGenes());
-		assertEquals(17, c3.genNumGenes());
+		assertEquals(11, c1.getNumGenes());
+		assertEquals(16, c2.getNumGenes());
+		assertEquals(17, c3.getNumGenes());
 
 	}
 	
@@ -47,16 +47,19 @@ public class ChromosomeTest {
 		Chromosome c1 = new Chromosome(net1);
 		
 		net1.generateOutput();
-
-		// TODO: issue probably has to do with size of inputs or something...?
 		net1.clearInputs();
 		
-		System.out.println("OUTPUT 1: " + net1.getOutputs().get(0));
-		System.out.println("Error 1: " + net1.calcNetworkError());
-		System.out.println();
+		double output1 = net1.getOutputs().get(0);
+		double error1 = net1.calcNetworkError();
+		
 		c1.evaluate();
-		System.out.println("OUTPUT 2: " + net1.getOutputs().get(0));
-		System.out.println("Error 2: " + net1.calcNetworkError());
+		
+		double output2 = net1.getOutputs().get(0);
+		double error2 = net1.calcNetworkError();
+		
+		assertEquals(true, output2 != output1);
+		assertEquals(true, error2 != error1);
+
 
 	}
 
