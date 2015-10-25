@@ -3,7 +3,7 @@ package evol;
 import java.util.ArrayList;
 
 public class GA extends TrainingStrategy {
-	
+
 	// crossover rate
 	private double cRate;
 	// mutation rate
@@ -16,21 +16,32 @@ public class GA extends TrainingStrategy {
 	private int pts;
 	// percent of pop to replace in each generation
 	private double repl;
-	
+	// number of parents for crossover
+	private int numParents = 2;
+
 	// actual population
 	private ArrayList<Chromosome> pop;
-	
+
 	// neural net
 	private FeedForwardANN net;
-	
+
 	/**
 	 * Creates a new GA instance
-	 * @param cRate crossover rate between 0 and 1
-	 * @param mRate mutation rate between 0 and 1
-	 * @param gens number of generations
-	 * @param pop population size
-	 * @param pts number of points for cross over (e.g. pts = 5 -> 5-point crossover)
-	 * @param repl percentage of population to replace each generation, between 0 and 1
+	 * 
+	 * @param cRate
+	 *            crossover rate between 0 and 1
+	 * @param mRate
+	 *            mutation rate between 0 and 1
+	 * @param gens
+	 *            number of generations
+	 * @param pop
+	 *            population size
+	 * @param pts
+	 *            number of points for cross over (e.g. pts = 5 -> 5-point
+	 *            crossover)
+	 * @param repl
+	 *            percentage of population to replace each generation, between 0
+	 *            and 1
 	 */
 	public GA(double cRate, double mRate, int gens, int popSize, int pts, double repl) {
 		this.cRate = cRate;
@@ -41,38 +52,93 @@ public class GA extends TrainingStrategy {
 		this.repl = repl;
 
 	}
-	
+
 	/** Creates new population of random individuals */
-	protected void initPopulation(){
-		pop = new ArrayList<Chromosome>();		
-		for (int i = 0; i < popSize; i++){
+	protected void initPopulation() {
+		pop = new ArrayList<Chromosome>();
+		for (int i = 0; i < popSize; i++) {
 			pop.add(new Chromosome(net));
 		}
 	}
-	
+
 	/**
 	 * Calls optimizer on weights of the given neural net
 	 */
-	protected void optimize(FeedForwardANN net){
+	protected void optimize(FeedForwardANN net) {
 		this.net = net;
 
 		initPopulation();
-		
+
 		run();
 	}
-	
+
 	/**
 	 * Runs optimization
 	 */
-	private void run(){
+	private void run() {
 		// runs for specified number of generations
-		for (int g = 0; g < gens; g++){
-			
+		for (int g = 0; g < gens; g++) {
+			// create popSize * repl offspring
+			int numOffspring = (int) Math.floor(popSize * repl);
+			ArrayList<Chromosome> newGen = new ArrayList<Chromosome>();
+
+			for (int o = 0; o < numOffspring; o++) {
+				// step 1: select() numParents parents
+				ArrayList<Chromosome> parents = new ArrayList<Chromosome>();
+				for (int p = 0; p < numParents; p++) {
+					parents.add(select());
+				}
+				// TODO:
+				// (may require evaluating all first) - do this on pop init!
+				// then sort
+
+				// step 2: conduct crossover() with parents
+				Chromosome offspring = crossover(parents);
+
+				// step 3: mutate() offspring
+				mutate(offspring);
+
+				// step 4: evaluate offspring
+				offspring.evaluate();
+				
+				newGen.add(offspring);
+			}
+
+			// TODO: replace least fit individuals with all the offspring
+
 		}
 	}
-	
-	
-	// 
+
+	/**
+	 * Selects a single Chromosome for crossover/mutation
+	 * 
+	 * @return selected Chromosome
+	 */
+	protected Chromosome select() {
+		// TODO: stub
+		return null;
+	}
+
+	/**
+	 * Creates an offspring Chromosome using x-point crossover
+	 * 
+	 * @param parents
+	 *            an arraylist of parent Chromosomes
+	 */
+	protected Chromosome crossover(ArrayList<Chromosome> parents) {
+		// TODO: stub
+		return null;
+	}
+
+	/**
+	 * Randomly mutates the given chromosome
+	 */
+	protected Chromosome mutate(Chromosome c) {
+		// TODO: stub
+		return null;
+	}
+
+	//
 	// below here are just getters and setters
 	//
 
@@ -139,9 +205,5 @@ public class GA extends TrainingStrategy {
 	public void setNet(FeedForwardANN net) {
 		this.net = net;
 	}
-	
-	
-	
-
 
 }

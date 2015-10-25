@@ -62,5 +62,35 @@ public class ChromosomeTest {
 
 
 	}
+	
+	@Test
+	public void testCompare(){
+		ArrayList<Double> inputs = new ArrayList<Double>();
+		inputs.add(3.0);
+		inputs.add(2.0);
+		inputs.add(.25);
+
+		ArrayList<Double> expectedOutput = new ArrayList<Double>();
+		expectedOutput.add(.8);
+		
+		FeedForwardANN net1 = new FeedForwardANN(1, 2, inputs, expectedOutput, true, false);
+		
+		Chromosome c1 = new Chromosome(net1);
+		c1.evaluate();
+		System.out.println(c1.getFitness());
+		
+		Chromosome c2 = new Chromosome(net1);
+		c2.evaluate();
+		System.out.println(c2.getFitness());
+		
+		if (c1.getFitness() > c2.getFitness()){
+			assertEquals(1, c1.compareTo(c2));
+		} else {
+			assertEquals(-1, c1.compareTo(c2));
+		}
+		
+		
+		
+	}
 
 }
