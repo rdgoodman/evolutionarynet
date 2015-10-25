@@ -12,9 +12,7 @@ public class Chromosome implements Comparable {
 	private FitnessFunction f;
 	private ArrayList<Double> outputs;
 
-	// TODO: this net should be unique to the GA instance
-	// hence, remember to call net.clearInputs() between each evaluation
-	// to avoid an out-of-bounds error
+
 	public Chromosome(FeedForwardANN net) {
 
 		this.net = net;
@@ -27,6 +25,7 @@ public class Chromosome implements Comparable {
 
 		// sets random initial gene values
 		randomInit();
+		evaluate();
 	}
 
 	/**
@@ -107,15 +106,6 @@ public class Chromosome implements Comparable {
 		// compareTo should return < 0 if this is supposed to be
 		// less than other, > 0 if this is supposed to be greater than
 		// other and 0 if they are supposed to be equal
-//		if (o.equals(null)) {
-//			return -1;
-//		} else if (this.fitness > ((Chromosome) o).getFitness()) {
-//			return 1;
-//		} else if (this.fitness < ((Chromosome) o).getFitness()) {
-//			return -1;
-//		}
-//		return 0;
-		
 		if (o.equals(null)) {
 			return -1;
 		} else {

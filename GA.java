@@ -88,9 +88,6 @@ public class GA extends TrainingStrategy {
 				for (int p = 0; p < numParents; p++) {
 					parents.add(select());
 				}
-				// TODO:
-				// (may require evaluating all first) - do this on pop init!
-				// then sort
 
 				// step 2: conduct crossover() with parents
 				Chromosome offspring = crossover(parents);
