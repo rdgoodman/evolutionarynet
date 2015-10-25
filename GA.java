@@ -1,6 +1,7 @@
 package evol;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class GA extends TrainingStrategy {
 
@@ -78,8 +79,13 @@ public class GA extends TrainingStrategy {
 	private void run() {
 		// runs for specified number of generations
 		for (int g = 0; g < gens; g++) {
+			// sorts population in ascending order 
+			// lower index -> lower error -> better fitness
+			Collections.sort(pop);
+			
 			// create popSize * repl offspring
 			int numOffspring = (int) Math.floor(popSize * repl);
+			
 			ArrayList<Chromosome> newGen = new ArrayList<Chromosome>();
 
 			for (int o = 0; o < numOffspring; o++) {
@@ -88,7 +94,7 @@ public class GA extends TrainingStrategy {
 				for (int p = 0; p < numParents; p++) {
 					parents.add(select());
 				}
-
+				
 				// step 2: conduct crossover() with parents
 				Chromosome offspring = crossover(parents);
 
