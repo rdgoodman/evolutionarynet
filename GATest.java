@@ -9,7 +9,7 @@ import org.junit.Test;
 public class GATest {
 	
 	@Test
-	public void testInitialize(){
+	public void testRandomInitialize(){
 		GA g = new GA(0.5, 0.5, 10, 30, 3, 0.25);
 		ArrayList<Double> inputs = new ArrayList<Double>();
 		inputs.add(3.0);

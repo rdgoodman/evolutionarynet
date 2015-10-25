@@ -44,7 +44,6 @@ public class ChromosomeTest {
 		expectedOutput.add(.8);
 		
 		FeedForwardANN net1 = new FeedForwardANN(1, 2, inputs, expectedOutput, true, false);		
-		Chromosome c1 = new Chromosome(net1);
 		
 		net1.generateOutput();
 		net1.clearInputs();
@@ -52,6 +51,7 @@ public class ChromosomeTest {
 		double output1 = net1.getOutputs().get(0);
 		double error1 = net1.calcNetworkError();
 		
+		Chromosome c1 = new Chromosome(net1);
 		c1.evaluate();
 		
 		double output2 = net1.getOutputs().get(0);
@@ -61,6 +61,34 @@ public class ChromosomeTest {
 		assertEquals(true, error2 != error1);
 
 
+	}
+	
+	@Test
+	public void testCompare(){
+		ArrayList<Double> inputs = new ArrayList<Double>();
+		inputs.add(3.0);
+		inputs.add(2.0);
+		inputs.add(.25);
+
+		ArrayList<Double> expectedOutput = new ArrayList<Double>();
+		expectedOutput.add(.8);
+		
+		FeedForwardANN net1 = new FeedForwardANN(1, 2, inputs, expectedOutput, true, false);
+		
+		Chromosome c1 = new Chromosome(net1);
+		c1.evaluate();
+		
+		Chromosome c2 = new Chromosome(net1);
+		c2.evaluate();
+		
+		if (c1.getFitness() > c2.getFitness()){
+			assertEquals(1, c1.compareTo(c2));
+		} else {
+			assertEquals(-1, c1.compareTo(c2));
+		}
+		
+		
+		
 	}
 
 }
