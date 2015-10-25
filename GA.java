@@ -79,32 +79,33 @@ public class GA extends TrainingStrategy {
 	private void run() {
 		// runs for specified number of generations
 		for (int g = 0; g < gens; g++) {
-			// sorts population in ascending order 
+			// sorts population in ascending order
 			// lower index -> lower error -> better fitness
 			Collections.sort(pop);
-			
+
 			// create popSize * repl offspring
 			int numOffspring = (int) Math.floor(popSize * repl);
 			ArrayList<Chromosome> newGen = new ArrayList<Chromosome>();
 
-			for (int o = 0; o < numOffspring; o++) {
-				// step 1: select() numParents parents
-				ArrayList<Chromosome> parents = new ArrayList<Chromosome>();
-				for (int p = 0; p < numParents; p++) {
-					parents.add(select());
-				}
-				
-				// step 2: conduct crossover() with parents
-				Chromosome offspring = crossover(parents);
-
-				// step 3: mutate() offspring
-				mutate(offspring);
-
-				// step 4: evaluate offspring
-				offspring.evaluate();
-				
-				newGen.add(offspring);
-			}
+			// TODO: uncomment
+			// for (int o = 0; o < numOffspring; o++) {
+			// // step 1: select() numParents parents
+			// ArrayList<Chromosome> parents = new ArrayList<Chromosome>();
+			// for (int p = 0; p < numParents; p++) {
+			// parents.add(select());
+			// }
+			//
+			// // step 2: conduct crossover() with parents
+			// Chromosome offspring = crossover(parents);
+			//
+			// // step 3: mutate() offspring
+			// mutate(offspring);
+			//
+			// // step 4: evaluate offspring
+			// offspring.evaluate();
+			//
+			// newGen.add(offspring);
+			// }
 
 			// TODO: replace least fit individuals with all the offspring
 
@@ -117,7 +118,45 @@ public class GA extends TrainingStrategy {
 	 * @return selected Chromosome
 	 */
 	protected Chromosome select() {
-		// TODO: stub
+		// TODO: oh shit this is for a maximization problem
+		// we need for minimization
+		
+		// sum fitness in population
+		double totalFitness = 0;
+		for (Chromosome c : pop) {
+			totalFitness += c.getFitness();
+		}
+
+		// make "roulette wheel" of upper probability bounds (normalized)
+		double[] roulette = new double[popSize];
+		for (int i = 0; i < popSize; i++) {
+			roulette[i] = (pop.get(i).getFitness() / totalFitness);
+			if (i > 0){
+				roulette[i] += roulette[i-1];
+			}
+			System.out.println(i + " " + roulette[i]);
+		}
+
+		// make a random "spin"
+		double spin = Math.random();
+		System.out.println();
+		System.out.println("Spin: " + spin);
+
+		// find where spin lives in population
+		if (spin < roulette[0]) {
+			System.out.println("zero");
+			return pop.get(0);
+		} else if (spin > roulette[popSize - 2]) {
+			System.out.println((popSize-2));
+			return pop.get(popSize - 1);
+		} else {
+			for (int r = 1; r < roulette.length-1; r++) {
+				if (spin < roulette[r]){
+					System.out.println((r));
+					return pop.get(r);
+				}
+			}
+		}
 		return null;
 	}
 
