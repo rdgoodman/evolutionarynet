@@ -85,7 +85,6 @@ public class GA extends TrainingStrategy {
 			
 			// create popSize * repl offspring
 			int numOffspring = (int) Math.floor(popSize * repl);
-			
 			ArrayList<Chromosome> newGen = new ArrayList<Chromosome>();
 
 			for (int o = 0; o < numOffspring; o++) {
