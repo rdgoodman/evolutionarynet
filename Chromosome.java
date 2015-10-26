@@ -1,5 +1,6 @@
 package evol;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Chromosome implements Comparable {
@@ -117,4 +118,15 @@ public class Chromosome implements Comparable {
 		}
 	}
 
+	public String toString(){
+		DecimalFormat twoDForm = new DecimalFormat("#.##");
+		
+		String s = "< ";
+		for (int i = 0; i < numGenes-1; i++){
+			s += (Double.valueOf(twoDForm.format(genes[i])) + " ~ ");
+		}
+		
+		s += (Double.valueOf(twoDForm.format(genes[numGenes-1])) + ">");		
+		return s;
+	}
 }

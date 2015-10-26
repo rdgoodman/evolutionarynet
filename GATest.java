@@ -82,4 +82,30 @@ public class GATest {
 			g.select();
 		}
 	}
+	
+	@Test
+	public void testCrossover(){
+		
+		System.out.println("--------------- CROSSOVER STUFF ---------------");
+		
+		GA g = new GA(0.5, 10, 30, 3, 0.25);
+		ArrayList<Double> inputs = new ArrayList<Double>();
+		inputs.add(3.0);
+		inputs.add(2.0);
+		inputs.add(.25);
+
+		ArrayList<Double> expectedOutput = new ArrayList<Double>();
+		expectedOutput.add(.8);
+
+		FeedForwardANN net1 = new FeedForwardANN(1, 2, inputs, expectedOutput, true, false);
+
+		g.optimize(net1);
+		
+		ArrayList<Chromosome> rents = new ArrayList<Chromosome>();
+		for (int i = 0; i < 3; i++){
+			rents.add(g.select());
+		}
+		
+		System.out.println(rents.get(0).toString());
+	}
 }

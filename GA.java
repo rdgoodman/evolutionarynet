@@ -89,24 +89,24 @@ public class GA extends TrainingStrategy {
 			ArrayList<Chromosome> newGen = new ArrayList<Chromosome>();
 
 			// TODO: uncomment
-			for (int o = 0; o < numOffspring; o++) {
-				// step 1: select() numParents parents
-				ArrayList<Chromosome> parents = new ArrayList<Chromosome>();
-				for (int p = 0; p < numParents; p++) {
-					parents.add(select());
-				}
-
-				// step 2: conduct crossover() with parents
-				Chromosome offspring = crossover(parents);
-
-				// step 3: mutate() offspring
-				mutate(offspring);
-
-				// step 4: evaluate offspring
-				offspring.evaluate();
-
-				newGen.add(offspring);
-			}
+//			for (int o = 0; o < numOffspring; o++) {
+//				// step 1: select() numParents parents
+//				ArrayList<Chromosome> parents = new ArrayList<Chromosome>();
+//				for (int p = 0; p < numParents; p++) {
+//					parents.add(select());
+//				}
+//
+//				// step 2: conduct crossover() with parents
+//				Chromosome offspring = crossover(parents);
+//
+//				// step 3: mutate() offspring
+//				mutate(offspring);
+//
+//				// step 4: evaluate offspring
+//				offspring.evaluate();
+//
+//				newGen.add(offspring);
+//			}
 
 			// TODO: replace least fit individuals with all the offspring
 
