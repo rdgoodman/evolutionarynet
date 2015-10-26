@@ -10,7 +10,7 @@ public class GATest {
 
 	@Test
 	public void testRandomInitialize() {
-		GA g = new GA(0.5, 0.5, 10, 30, 3, 0.25);
+		GA g = new GA(0.5, 10, 30, 3, 0.25);
 		ArrayList<Double> inputs = new ArrayList<Double>();
 		inputs.add(3.0);
 		inputs.add(2.0);
@@ -39,7 +39,7 @@ public class GATest {
 
 	@Test
 	public void testSort() {
-		GA g = new GA(0.5, 0.5, 10, 30, 3, 0.25);
+		GA g = new GA(0.5, 10, 30, 3, 0.25);
 		ArrayList<Double> inputs = new ArrayList<Double>();
 		inputs.add(3.0);
 		inputs.add(2.0);
@@ -55,12 +55,17 @@ public class GATest {
 		for (int i = 0; i < g.getPop().size()-1; i++) {
 			assertEquals(true, g.getPop().get(i).getFitness() < g.getPop().get(i+1).getFitness());
 		}
+		
+		for (int i = 0; i < g.getPop().size(); i++) {
+			System.out.println(g.getPop().get(i).getFitness());
+		}
+		
 
 	}
 
 	@Test
 	public void testSelection(){
-		GA g = new GA(0.5, 0.5, 10, 10, 3, 0.25);
+		GA g = new GA(0.5, 10, 30, 3, 0.25);
 		ArrayList<Double> inputs = new ArrayList<Double>();
 		inputs.add(3.0);
 		inputs.add(2.0);
@@ -73,8 +78,8 @@ public class GATest {
 
 		g.optimize(net1);
 		
-		//for (int i = 0; i < 10; i++){
+		for (int i = 0; i < 30; i++){
 			g.select();
-		//}
+		}
 	}
 }

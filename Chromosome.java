@@ -86,7 +86,7 @@ public class Chromosome implements Comparable {
 		//
 		// Step 3: calculate & assign fitness
 		//
-		fitness = net.calcNetworkError();
+		fitness = -1 * net.calcNetworkError();
 	}
 
 	public int getNumGenes() {
@@ -99,6 +99,10 @@ public class Chromosome implements Comparable {
 
 	public double getFitness() {
 		return fitness;
+	}
+	
+	public void setGene(int index, double gene){
+		genes[index] = gene;
 	}
 
 	@Override
